@@ -4,34 +4,32 @@ import java.time.LocalDateTime;
 
 public abstract class Match implements Comparable<Match> {
 
-    private LocalDateTime startTime;
-    private Score score;
+    private final LocalDateTime startTime;
 
-    public Match(Score score, LocalDateTime startTime) {
+    public Match(LocalDateTime startTime) {
         this.startTime = startTime;
-        this.score = score;
     }
 
-    public LocalDateTime getStartTime() {
+    public final LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void updateScore(Score score) {
-        this.score = score;
-    }
+    public abstract void setScore(Score score);
+
+    public abstract Score getScore() ;
 
     public abstract int getTotalScore();
 
     @Override
     public String toString() {
-        return score.toString();
+        return getScore().toString();
     }
 
     @Override
     public int compareTo(Match other) {
         int scoreDifference = other.getTotalScore() - this.getTotalScore();
         if (scoreDifference == 0) {
-            return other.getStartTime().compareTo(this.startTime);  // Most recently started match first
+            return other.getStartTime().compareTo(this.startTime);
         }
         return scoreDifference;
     }
