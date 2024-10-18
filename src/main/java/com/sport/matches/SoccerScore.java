@@ -1,12 +1,14 @@
 package com.sport.matches;
 
-public class SoccerScore implements Score{
+import com.sport.exceptions.InvalidInputException;
+
+public class SoccerScore implements Score {
     private int homeScore;
     private int awayScore;
 
-    public SoccerScore(int homeScore, int awayScore) {
-        this.homeScore = homeScore;
-        this.awayScore = awayScore;
+    public SoccerScore(int homeScore, int awayScore) throws InvalidInputException {
+        setHomeScore(homeScore);
+        setAwayScore(awayScore);
     }
 
     public SoccerScore() {
@@ -16,7 +18,8 @@ public class SoccerScore implements Score{
         return homeScore;
     }
 
-    public void setHomeScore(int homeScore) {
+    public void setHomeScore(int homeScore) throws InvalidInputException {
+        if (homeScore < 0) throw new InvalidInputException();
         this.homeScore = homeScore;
     }
 
@@ -24,7 +27,8 @@ public class SoccerScore implements Score{
         return awayScore;
     }
 
-    public void setAwayScore(int awayScore) {
+    public void setAwayScore(int awayScore) throws InvalidInputException {
+        if (awayScore < 0) throw new InvalidInputException();
         this.awayScore = awayScore;
     }
 }

@@ -43,7 +43,7 @@ public class ScoreBoardTest {
     public void testUpdateScore() throws InvalidInputException {
         assertNotNull(scoreBoard);
         scoreBoard.startMatch(match);
-        SoccerMatch soccerMatch = new SoccerMatch(LocalDateTime.now(), "Brazil", "Argentina");
+        SoccerMatch soccerMatch = new SoccerMatch(LocalDateTime.now(), "Austria", "Germany");
         SoccerScore soccerScore = new SoccerScore(2, 1);
         scoreBoard.updateScore(soccerMatch, soccerScore);
         SoccerMatch match = (SoccerMatch) scoreBoard.getSummary().first();
@@ -53,7 +53,7 @@ public class ScoreBoardTest {
     }
 
     @Test
-    public void testFinishMatch() throws InterruptedException {
+    public void testFinishMatch() {
         scoreBoard.startMatch(match);
         scoreBoard.startMatch(matchSecond);
         scoreBoard.finishMatch(match);
@@ -61,7 +61,7 @@ public class ScoreBoardTest {
     }
 
     @Test
-    public void testGetSummaryOrderedByScore() {
+    public void testGetSummaryOrderedByScore() throws InvalidInputException {
         System.out.println(match);
         scoreBoard.startMatch(match);
         scoreBoard.startMatch(matchSecond);
@@ -138,13 +138,22 @@ public class ScoreBoardTest {
                 new SoccerMatch(LocalDateTime.now(), "Austria", "Germany");
         scoreBoard.startMatch(testMatch1);
         scoreBoard.startMatch(testMatch2);
-        assertEquals(1,scoreBoard.getSummary().size());
+        assertEquals(1, scoreBoard.getSummary().size());
     }
 
     @Test
     public void testScoreRangeGreaterThanZero() {
-        assertThrows(InvalidInputException.class,()->new SoccerScore(-1,2));
-        assertThrows(InvalidInputException.class,()->new SoccerScore(-1,-2));
-        assertThrows(InvalidInputException.class,()->new SoccerScore(1,-2));
+        assertThrows(InvalidInputException.class, () -> new SoccerScore(-1, 2));
+        assertThrows(InvalidInputException.class, () -> new SoccerScore(-1, -2));
+        assertThrows(InvalidInputException.class, () -> new SoccerScore(1, -2));
+    }
+
+    @Test
+    public void testGetStringSummary() throws InvalidInputException {
+        scoreBoard.startMatch(match);
+        scoreBoard.startMatch(matchSecond);
+        scoreBoard.updateScore(matchSecond, new SoccerScore(5, 5));
+        System.out.println(scoreBoard.getStringSummary());
+        assertEquals("Spain 5 - England 5 "+"Austria 0 - Germany 0 ", scoreBoard.getStringSummary());
     }
 }

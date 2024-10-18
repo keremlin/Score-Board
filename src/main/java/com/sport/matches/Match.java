@@ -16,7 +16,7 @@ public abstract class Match implements Comparable<Match> {
 
     public abstract void setScore(Score score);
 
-    public abstract Score getScore() ;
+    public abstract Score getScore();
 
     public abstract int getTotalScore();
 

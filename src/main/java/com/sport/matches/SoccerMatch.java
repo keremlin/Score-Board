@@ -12,7 +12,7 @@ public class SoccerMatch extends Match {
 
     public SoccerMatch(LocalDateTime startTime, String homeTeam, String awayTeam) throws InvalidInputException {
         super(startTime);
-        if (startTime==null || homeTeam == null || awayTeam == null || homeTeam.isEmpty() || awayTeam.isEmpty()) {
+        if (startTime == null || homeTeam == null || awayTeam == null || homeTeam.isEmpty() || awayTeam.isEmpty()) {
             throw new InvalidInputException();
         }
         this.homeTeam = homeTeam;
@@ -20,14 +20,25 @@ public class SoccerMatch extends Match {
         score = new SoccerScore();
     }
 
-    public String getHomeTeam() { return homeTeam; }
-    public String getAwayTeam() { return awayTeam; }
-    public int getHomeScore() { return score.getHomeScore(); }
-    public int getAwayScore() { return score.getAwayScore(); }
+    public String getHomeTeam() {
+        return homeTeam;
+    }
+
+    public String getAwayTeam() {
+        return awayTeam;
+    }
+
+    public int getHomeScore() {
+        return score.getHomeScore();
+    }
+
+    public int getAwayScore() {
+        return score.getAwayScore();
+    }
 
     @Override
     public void setScore(Score score) {
-        this.score= (SoccerScore) score;
+        this.score = (SoccerScore) score;
     }
 
     @Override
